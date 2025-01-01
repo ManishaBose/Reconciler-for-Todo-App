@@ -11,44 +11,10 @@
   <button onclick="addTodo()">Add todo</button>
   <br /> <br />
 
-  <div id="todos">
+  <div id="container">
 
   </div>
 </body>
-<script>
-    let globalId = 1;
-    let todoState = [];
-    let oldTodoState = [];
-
-    function addTodoToDom(todo) {
-      
-    }
-
-    function removeTodoFromDom(todo) {
-      
-    }
-
-    function updateTodoInDom(newTodo) {
-        
-    }
-
-    function updateState(newTodos) {
-      const added = [];
-      const deleted = [];
-      const updated = [];
-      
-      oldTodoState = newTodos;
-    }
-
-    function addTodo() {
-      const title = document.getElementById("title").value;
-      const description = document.getElementById("description").value;
-      todoState.push({
-        title: title,
-        description: description,
-        id: globalId++,
-      })
-      updateState(todoState);
-    }
-  </script>
+<script src="./index.js">
+</script>
 </html>
