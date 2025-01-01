@@ -10,6 +10,13 @@ let globalId = 1;
 let todoState = [];
 let oldTodoState = [];
 
+function deleteTodo(event){
+    const delId = event.target.parentElement.id;
+    let toDel = todoState.findIndex(todo => todo.id === Number(delId));
+    todoState.splice(toDel,1);
+    updateState(todoState)
+}
+
 function createChild(todo){
     const child = document.createElement("div");
     const title = document.createElement("div");
@@ -25,6 +32,8 @@ function createChild(todo){
     description.innerHTML = todo.description;
     updateButton.innerHTML = "Update";
     deleteButton.innerHTML = "Delete";
+     //add event listner to deleteButton
+     deleteButton.addEventListener("click",deleteTodo);
     child.appendChild(title);
     child.appendChild(description);
     child.appendChild(document.createElement("br"));
@@ -42,7 +51,7 @@ function addTodoToDom(todo) {
 }
 
 function removeTodoFromDom(todo) {
-  
+    document.getElementById(todo.id).innerHTML = "";
 }
 
 function updateTodoInDom(newTodo) {
