@@ -17,6 +17,54 @@ function deleteTodo(event){
     updateState(todoState)
 }
 
+function updateTodo(event){
+    const parentEl = event.target.parentElement;
+    parentEl.querySelector(".title").remove();
+    parentEl.querySelector(".description").remove();
+    parentEl.querySelector(".update").remove();
+    parentEl.querySelector(".delete").remove();
+    parentEl.querySelector("br").remove();
+    parentEl.querySelector("br").remove();
+ 
+    const titleEl = document.createElement("input");
+    titleEl.setAttribute( "type",'text')
+    titleEl.setAttribute( "placeholder",'Update todo title')
+    titleEl.setAttribute( "class",'updateTitle')
+
+    const desEl = document.createElement("input");
+    desEl.setAttribute( "type",'text')
+    desEl.setAttribute( "placeholder",'Update todo description')
+    desEl.setAttribute( "class",'updateDes')
+
+    const okButton = document.createElement("button");
+    const cancelButton = document.createElement("button");
+
+    okButton.innerHTML="Ok";
+    cancelButton.innerHTML = "Cancel";
+
+    parentEl.appendChild(titleEl);
+    parentEl.appendChild(document.createElement("br"));
+    parentEl.appendChild(document.createElement("br"));
+    parentEl.appendChild(desEl);
+    parentEl.appendChild(document.createElement("br"));
+    parentEl.appendChild(document.createElement("br"));
+    parentEl.appendChild(okButton);
+    okButton.addEventListener("click", tapUpdateInfo);
+  }
+  function tapUpdateInfo(event){
+    const parentEl = event.target.parentElement;
+    parentEl.remove();
+    const updateId = parentEl.id;
+    const title = parentEl.querySelector(".updateTitle").value;
+    const des = parentEl.querySelector(".updateDes").value;
+    let toUpdate = todoState.findIndex(todo => todo.id === Number(updateId));
+    //console.log(todoState[toUpdate]);
+    todoState[toUpdate].title = title;
+    todoState[toUpdate].description = des;
+    updateState(todoState);
+  }
+
+
 function createChild(todo){
     const child = document.createElement("div");
     const title = document.createElement("div");
@@ -32,8 +80,10 @@ function createChild(todo){
     description.innerHTML = todo.description;
     updateButton.innerHTML = "Update";
     deleteButton.innerHTML = "Delete";
-     //add event listner to deleteButton
-     deleteButton.addEventListener("click",deleteTodo);
+    //add event listner to deleteButton
+    deleteButton.addEventListener("click",deleteTodo);
+    //add event listner to updateButton
+    updateButton.addEventListener("click",updateTodo);
     child.appendChild(title);
     child.appendChild(description);
     child.appendChild(document.createElement("br"));
@@ -55,7 +105,8 @@ function removeTodoFromDom(todo) {
 }
 
 function updateTodoInDom(newTodo) {
-    
+    const parent = document.getElementById("container");
+    parent.appendChild(createChild(newTodo));
 }
 
 function updateState(newTodos) {
