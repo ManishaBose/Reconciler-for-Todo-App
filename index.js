@@ -19,35 +19,16 @@ function deleteTodo(event){
 
 function updateTodo(event){
     const parentEl = event.target.parentElement;
-    parentEl.querySelector(".title").remove();
-    parentEl.querySelector(".description").remove();
+    parentEl.querySelector(".title").setAttribute("contenteditable", true);
+    parentEl.querySelector(".description").setAttribute("contenteditable",true);
     parentEl.querySelector(".update").remove();
     parentEl.querySelector(".delete").remove();
     parentEl.querySelector("br").remove();
     parentEl.querySelector("br").remove();
- 
-    const titleEl = document.createElement("input");
-    titleEl.setAttribute( "type",'text')
-    titleEl.setAttribute( "placeholder",'Update todo title')
-    titleEl.setAttribute( "class",'updateTitle')
-
-    const desEl = document.createElement("input");
-    desEl.setAttribute( "type",'text')
-    desEl.setAttribute( "placeholder",'Update todo description')
-    desEl.setAttribute( "class",'updateDes')
 
     const okButton = document.createElement("button");
-    const cancelButton = document.createElement("button");
 
     okButton.innerHTML="Ok";
-    cancelButton.innerHTML = "Cancel";
-
-    parentEl.appendChild(titleEl);
-    parentEl.appendChild(document.createElement("br"));
-    parentEl.appendChild(document.createElement("br"));
-    parentEl.appendChild(desEl);
-    parentEl.appendChild(document.createElement("br"));
-    parentEl.appendChild(document.createElement("br"));
     parentEl.appendChild(okButton);
     okButton.addEventListener("click", tapUpdateInfo);
   }
@@ -55,10 +36,9 @@ function updateTodo(event){
     const parentEl = event.target.parentElement;
     parentEl.remove();
     const updateId = parentEl.id;
-    const title = parentEl.querySelector(".updateTitle").value;
-    const des = parentEl.querySelector(".updateDes").value;
+    const title = parentEl.querySelector(".title").innerHTML;
+    const des = parentEl.querySelector(".description").innerHTML;
     let toUpdate = todoState.findIndex(todo => todo.id === Number(updateId));
-    //console.log(todoState[toUpdate]);
     todoState[toUpdate].title = title;
     todoState[toUpdate].description = des;
     updateState(todoState);
