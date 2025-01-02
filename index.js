@@ -34,7 +34,20 @@ function updateTodo(event){
   }
   function tapUpdateInfo(event){
     const parentEl = event.target.parentElement;
-    parentEl.remove();
+    parentEl.querySelector(".title").setAttribute("conteneditable",false);
+    parentEl.querySelector(".description").setAttribute("contenteditable",false);
+    parentEl.querySelector("button").remove();
+
+    const updateButton = document.createElement("button");
+    updateButton.setAttribute("class","update");
+    const deleteButton = document.createElement("button");
+    deleteButton.setAttribute("class","delete");
+    updateButton.innerHTML = "Update";
+    deleteButton.innerHTML = "Delete";
+
+    parentEl.appendChild(updateButton);
+    parentEl.appendChild(deleteButton);
+
     const updateId = parentEl.id;
     const title = parentEl.querySelector(".title").innerHTML;
     const des = parentEl.querySelector(".description").innerHTML;
@@ -84,9 +97,8 @@ function removeTodoFromDom(todo) {
     document.getElementById(todo.id).innerHTML = "";
 }
 
-function updateTodoInDom(newTodo) {
-    const parent = document.getElementById("container");
-    parent.appendChild(createChild(newTodo));
+function updateTodoInDom() {
+    alert("Todo updated");
 }
 
 function updateState(newTodos) {
@@ -114,7 +126,7 @@ function updateState(newTodos) {
     removeTodoFromDom(todo);
     }
     for(let todo of updated){
-    updateTodoInDom(todo);
+    updateTodoInDom();
     }
     //oldTodoState = [...newTodos]; shallow copy won't work
     oldTodoState = JSON.parse(JSON.stringify(newTodos));
