@@ -97,8 +97,8 @@ function removeTodoFromDom(todo) {
     document.getElementById(todo.id).innerHTML = "";
 }
 
-function updateTodoInDom() {
-    alert("Todo updated");
+function updateTodoInDom(newTodo) {
+    //alert("Todo updated");
 }
 
 function updateState(newTodos) {
